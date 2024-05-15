@@ -1,3 +1,6 @@
+//
+// Created by duck on 2024/5/10.
+//
 #include <bits/stdc++.h>
 #define _ ios_base::sync_with_stdio(0);cin.tie(0);
 using namespace std;
@@ -13,3 +16,7 @@ signed main() {_
     solve();
     return 0;
 }
+
+//12
+//1 2 2 3 3 1 2 3 4 1 2 3
+
