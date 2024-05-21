@@ -7,12 +7,16 @@ using namespace std;
 using ll = long long;
 using ld = long double;
 using pii = pair<int, int>;
-constexpr ll INF = 1e18;
+constexpr int INF = 1e9;
 
 void solve() {
     int N; cin >> N;
+
     vector adj(N + 1, vector<int>());
-    vector edges(N, pii());
+    vector edges(N - 1, pii());
+    vector vis(N + 1, false);
+    vector child(N + 1, 0);
+
     for(auto& [a, b]: edges) cin >> a >> b;
 
     for(auto [a, b]: edges) {
@@ -20,55 +24,57 @@ void solve() {
         adj[b].push_back(a);
     }
 
-    auto f = [&](int x, int y) {
-        vector vis(N + 1, 0);
+    auto dfs = [&](int x, int t, auto self) -> int {
+        vis[x] = true;
+        int depth = 0;
 
-        auto bfs = [&](const int r, int a) {
-            queue<int> que;
-            que.push(r);
-            vis[r] = 1;
-            vector<int> leaves;
-            while(!que.empty()) {
-                int u = que.front(); que.pop();
-                int cnt = 0;
-                for(auto v: adj[u]) {
-                    if(vis[v]) continue;
-                    vis[v] = 1;
-                    que.push(v);
-                    cnt++;
-                }
-                if(cnt == 0) leaves.push_back(u);
-            }
-            return leaves;
-        };
+        for(auto y: adj[x]) {
+            if(vis[y] || y == t) continue;
 
-        auto remove_leaves = [&](vector<int>& leaves) {
-            queue<pii> que;
-            vector width(N+1, 0);
-            int last;
-            for(auto u: leaves) {
-                que.emplace(u, 0);
-                vis[u] = 1;
+            int d = self(y, t, self) + 1;
+
+            if(d > depth) {
+                depth = d;
+                child[x] = y;
             }
-            while(!que.empty()) {
-                auto [u, d] = que.front(); que.pop();
-                last = u;
-                width[u] = max(width[u], d);
-                for(auto v: adj[u]) {
-                    if(vis[v]) continue;
-                    vis[v] = 1;
-                    que.emplace(v, d + 1);
-                }
-            }
-            int w = 0;
-            for(auto e: adj[last]) w +=
-        };
+        }
+        return depth;
     };
 
-    for(auto [x, y]: edges) {
+    auto go = [&](int x, int k) {
+        while(k--) x = child[x];
+        return x;
+    };
 
+    auto f = [&](int s, int t) -> pii {
+        fill(vis.begin(), vis.end(), false);
+        int d = dfs(s, t, dfs);
+        int v = go(s, d);
+
+        fill(vis.begin(), vis.end(), false);
+        d = dfs(v, t, dfs);
+        int midp = go(v, d / 2);
+
+        return {d, midp};
+    };
+
+    int ans = INF;
+    pii removed, added;
+    for(auto [x, y]: edges) {
+        auto [d1, mid1] = f(x, y);
+        auto [d2, mid2] = f(y, x);
+
+        int res = max(max(d1, d2), (d1 + 1) / 2 + (d2 + 1) / 2 + 1);
+        if(res < ans) {
+            ans = res;
+            removed = {x, y};
+            added = {mid1, mid2};
+        }
     }
 
+    cout << ans << '\n';
+    cout << removed.first << ' ' << removed.second << '\n';
+    cout << added.first << ' ' << added.second << '\n';
 }
 
 signed main() {_
@@ -76,17 +82,18 @@ signed main() {_
     return 0;
 }
 
-// 14
-// 1 2
-// 1 8
-// 2 3
-// 2 4
-// 8 9
-// 8 10
-// 8 11
-// 4 5
-// 4 6
-// 4 7
-// 10 12
-// 10 13
-// 13 14
+//14
+//1 2
+//1 8
+//2 3
+//2 4
+//8 9
+//8 10
+//8 11
+//4 5
+//4 6
+//4 7
+//10 12
+//10 13
+//13 14
+
