@@ -1,0 +1,1 @@
+# Link: [Week06](https://open.kattis.com/contests/kcpdqe)

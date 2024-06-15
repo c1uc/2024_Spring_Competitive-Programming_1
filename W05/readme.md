@@ -1,0 +1,1 @@
+# Link: [Week05](https://open.kattis.com/contests/fe6qkw)

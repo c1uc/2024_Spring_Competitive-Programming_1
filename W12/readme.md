@@ -1,0 +1,1 @@
+# Link: [Week12](https://open.kattis.com/contests/kjapds)

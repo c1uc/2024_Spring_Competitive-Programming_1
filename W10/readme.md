@@ -1,0 +1,1 @@
+# Link: [Week10](https://open.kattis.com/contests/vaucue)
