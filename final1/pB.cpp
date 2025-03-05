@@ -30,7 +30,6 @@ void solve() {
     v.emplace_back(k);
     mv[l + 1] = v;
     ml[l + 1] = k;
-    // cout << l + 1 << ' ' << k << endl;
   }
 
   cout << ml.rbegin()->first << '\n';

@@ -61,7 +61,6 @@ void solve() {
   }
 
   dfs(1, 1);
-  // for(int i = 0;i <= n;i++) cout << depth[i] << endl;
 
   vector<vector<pii>> jpp(n + 1, vector<pii>(lg(n + 1) + 1));
 
@@ -73,8 +72,6 @@ void solve() {
       jpp[i][j].second = max(jpp[i][j - 1].second, jpp[jpp[i][j - 1].first][j - 1].second);
     }
   }
-
-  // for(int i = 1;i <= n;i++) for(int j = 0;j <= lg(n+1);j++) cout << i << ' ' << j << ' ' << jpp[i][j].first << ' ' << jpp[i][j].second << '\n';
 
   int q;
   cin >> q;

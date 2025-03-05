@@ -8,20 +8,13 @@ ll v[51][2];
 void solve() {
   int n, m, l;
   cin >> n >> m >> l;
-  // m = 1000;
-  // n = 50;
+
   for(int i = 0;i < n;i++) cin >> v[i][0] >> v[i][1];
-  // for(int i = 0;i < 50;i++) {
-  //   v[i][0] = 1;
-  //   v[i][1] = 1000000000;
-  // }
 
   int q = 0;
   for(int i = 0;i < l;i++) {
     int t; cin >> t; q += t;
   }
-
-  // for(int i = 0;i < 50;i++) q += 10;
 
   ll ans = 0;
   for(int i = 0;i < n;i++) {

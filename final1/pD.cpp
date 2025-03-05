@@ -3,12 +3,6 @@ using namespace std;
 typedef long long ll;
 #define MOD 1000000007;
 
-ll m[3][3] = {
-{1, 0, 1},
-{1, 0, 0},
-{0, 1, 0}
-};
-
 vector<vector<ll>> mul(vector<vector<ll>>& a, vector<vector<ll>>& b) {
   vector<vector<ll>> c(3, vector<ll>(3, 0));
   for(int i = 0;i < 3;i++) {
